@@ -1,0 +1,3 @@
+from guitar_shop.find_guitar_tester import find_guitar_tester
+
+find_guitar_tester()
