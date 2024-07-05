@@ -1,12 +1,10 @@
 from .guitar import Guitar, GuitarSpec
 from .types import Type, Builder, Wood
+from dataclasses import dataclass, field
 
+@dataclass()
 class Inventory():
-    guitars: list
-
-    def __init__(self) -> None:
-        self.guitars = []
-        self.fillJunkData()
+    guitars: list = field(default_factory=list)
 
     def fillJunkData(self):
         self.guitars.append(Guitar("Inv-000", 1249.99, GuitarSpec(Builder.FENDER, "Stratocastor", Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 12)))
@@ -44,7 +42,3 @@ class Inventory():
                 matchingGuitars.append(element)
         
         return matchingGuitars
-    
-    def print(self):
-        for element in self.guitars:
-            print(element.getSerialNumber())

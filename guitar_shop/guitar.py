@@ -1,5 +1,7 @@
 from .types import Type, Builder, Wood
+from dataclasses import dataclass
 
+@dataclass()
 class GuitarSpec():
     builder: Builder
     model: str
@@ -7,19 +9,6 @@ class GuitarSpec():
     backWood: Wood
     topWood: Wood
     numStrings: int
-
-    def __init__(self, builder: Builder,
-                 model: str,
-                 type: Type,
-                 backWood: Wood,
-                 topWood: Wood,
-                 numStrings: int) -> None:
-        self.builder = builder
-        self.model = model
-        self.type = type
-        self.backWood = backWood
-        self.topWood = topWood
-        self.numStrings = numStrings
 
     def getBuilder(self) -> Builder:
         return self.builder
@@ -50,18 +39,12 @@ class GuitarSpec():
         
         return False
 
+@dataclass()
 class Guitar():
     serialNumber: str
     price: float
     spec: GuitarSpec
 
-    def __init__(self, serialNumber: str,
-                 price: float,
-                 spec: GuitarSpec) -> None:
-        self.serialNumber = serialNumber
-        self.price = price
-        self.spec = spec
-    
     def getSerialNumber(self) -> str:
         return self.serialNumber
     
