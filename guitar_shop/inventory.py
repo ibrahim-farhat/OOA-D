@@ -1,44 +1,84 @@
-from .guitar import Guitar, GuitarSpec
-from .types import Type, Builder, Wood
+from .types import Type, Builder, Wood, InstrumentType, Property
+from .instrument import Instrument
+from .instrumentSpec import InstrumentSpec
+
 from dataclasses import dataclass, field
 
 @dataclass()
 class Inventory():
-    guitars: list = field(default_factory=list)
+    inventory: list = field(default_factory=list)
 
-    def fillJunkData(self):
-        self.guitars.append(Guitar("Inv-000", 1249.99, GuitarSpec(Builder.FENDER, "Stratocastor", Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 12)))
-        self.guitars.append(Guitar("Inv-111", 799.99, GuitarSpec(Builder.ANY, "Stratocastor", Type.ACOUSTIC, Wood.ADIRONDACK, Wood.ADIRONDACK, 10)))
-        self.guitars.append(Guitar("Inv-122", 549.99, GuitarSpec(Builder.ANY, "Stratocastor", Type.ACOUSTIC, Wood.ADIRONDACK, Wood.ADIRONDACK, 10)))
-        self.guitars.append(Guitar("Inv-133", 799.99, GuitarSpec(Builder.ANY, "Stratocastor", Type.ACOUSTIC, Wood.ADIRONDACK, Wood.ADIRONDACK, 1)))
-        self.guitars.append(Guitar("Inv-222", 899.99, GuitarSpec(Builder.GIBSON, "Stratocastor", Type.ELECTRIC, Wood.BRAZILIAN_ROSEWOOD, Wood.BRAZILIAN_ROSEWOOD, 3)))
-        self.guitars.append(Guitar("Inv-333", 949.99, GuitarSpec(Builder.COLLINGS, "Stratocastor", Type.ACOUSTIC, Wood.COCOBOLO, Wood.COCOBOLO, 4)))
-        self.guitars.append(Guitar("Inv-444", 349.99, GuitarSpec(Builder.MARTIN, "Stratocastor", Type.ELECTRIC, Wood.CEDAR, Wood.CEDAR, 6)))
-        self.guitars.append(Guitar("Inv-555", 239.99, GuitarSpec(Builder.OLSON, "Stratocastor", Type.ACOUSTIC, Wood.INDIAN_ROSEWOOD, Wood.INDIAN_ROSEWOOD, 17)))
-        self.guitars.append(Guitar("Inv-666", 1599.99, GuitarSpec(Builder.PRS, "Stratocastor", Type.ELECTRIC, Wood.MAHOGANY, Wood.MAHOGANY, 5)))
-        self.guitars.append(Guitar("Inv-777", 3999.99, GuitarSpec(Builder.RYAN, "Stratocastor", Type.ACOUSTIC, Wood.MAPLE, Wood.MAPLE, 8)))
-        self.guitars.append(Guitar("Inv-888", 569.99, GuitarSpec(Builder.FENDER, "Stratocastor", Type.ACOUSTIC, Wood.SITKA, Wood.SITKA, 5)))
-        self.guitars.append(Guitar("Inv-999", 1099.99, GuitarSpec(Builder.GIBSON, "Stratocastor", Type.ACOUSTIC, Wood.BRAZILIAN_ROSEWOOD, Wood.INDIAN_ROSEWOOD, 7)))        
-
-    def addGuitar(self, serialNumber: str,
-                  price: float,
-                  spec: GuitarSpec):
-        
-        self.guitars.append(Guitar(serialNumber,
-                                          price,
-                                          spec))
+    def addInstrument(self, serialNumber: str, price: float, spec: InstrumentSpec):
+        self.inventory.append(Instrument(serialNumber, price, spec))
     
-    def getGuitar(self, serialNumber: str) -> Guitar:
-        for element in self.guitars:
-            if element.getSerialNumber() == serialNumber:
-                return element
+    def getInstrument(self, serialNumber: str) -> Instrument:
+        for instrument in self.inventory:
+            if instrument.getSerialNumber() == serialNumber:
+                return instrument
+            
         return None
     
-    def search(self, searchSpec: GuitarSpec):
-        matchingGuitars = []
+    def search(self, searchSpec: InstrumentSpec) -> list:
+        matchingInstruments = []
 
-        for element in self.guitars:
-            if searchSpec == element.getSpec():
-                matchingGuitars.append(element)
+        for instrument in self.inventory:
+            if searchSpec.matches(instrument.getSpec()):
+                matchingInstruments.append(instrument)
         
-        return matchingGuitars
+        return matchingInstruments
+    
+    def fillTestData(self):
+        newProperties1 = dict()
+        newProperties1[Property.INSTRUMENT_TYPE] = InstrumentType.GUITER
+        newProperties1[Property.BUILDER] = Builder.COLLINGS
+        newProperties1[Property.MODEL] = "CJ"
+        newProperties1[Property.TYPE] = Type.ACOUSTIC
+        newProperties1[Property.NUM_STRINGS] = 6
+        newProperties1[Property.TOP_WOOD] = Wood.SPRUCE
+        newProperties1[Property.BACK_WOOD] = Wood.INDIAN_ROSEWOOD
+        self.addInstrument("11277", 3999.95, InstrumentSpec(newProperties1))
+        newProperties2 = dict()
+        newProperties2[Property.INSTRUMENT_TYPE] = InstrumentType.GUITER
+        newProperties2[Property.BUILDER] = Builder.MARTIN
+        newProperties2[Property.MODEL] = "D-18"
+        newProperties2[Property.TYPE] = Type.ACOUSTIC
+        newProperties2[Property.NUM_STRINGS] = 6
+        newProperties2[Property.TOP_WOOD] = Wood.ADIRONDACK
+        newProperties2[Property.BACK_WOOD] = Wood.MAHOGANY
+        self.addInstrument("122784", 5495.95, InstrumentSpec(newProperties2))
+        newProperties3 = dict()
+        newProperties3[Property.INSTRUMENT_TYPE] = InstrumentType.GUITER
+        newProperties3[Property.BUILDER] = Builder.FENDER
+        newProperties3[Property.MODEL] = "stratocastor"
+        newProperties3[Property.TYPE] = Type.ELECTRIC
+        newProperties3[Property.NUM_STRINGS] = 6
+        newProperties3[Property.TOP_WOOD] = Wood.ALDER
+        newProperties3[Property.BACK_WOOD] = Wood.ALDER
+        self.addInstrument("V95693", 1499.95, InstrumentSpec(newProperties3))
+        newProperties4 = dict()
+        newProperties4[Property.INSTRUMENT_TYPE] = InstrumentType.GUITER
+        newProperties4[Property.BUILDER] = Builder.GIBSON
+        newProperties4[Property.MODEL] = "SG'61 Reissue"
+        newProperties4[Property.TYPE] = Type.ELECTRIC
+        newProperties4[Property.NUM_STRINGS] = 6
+        newProperties4[Property.TOP_WOOD] = Wood.MAHOGANY
+        newProperties4[Property.BACK_WOOD] = Wood.MAHOGANY
+        self.addInstrument("82765501", 1890.95, InstrumentSpec(newProperties4))
+        newProperties5 = dict()
+        newProperties5[Property.INSTRUMENT_TYPE] = InstrumentType.GUITER
+        newProperties5[Property.BUILDER] = Builder.FENDER
+        newProperties5[Property.MODEL] = "stratocastor"
+        newProperties5[Property.TYPE] = Type.ELECTRIC
+        newProperties5[Property.NUM_STRINGS] = 6
+        newProperties5[Property.TOP_WOOD] = Wood.ALDER
+        newProperties5[Property.BACK_WOOD] = Wood.ALDER
+        self.addInstrument("V9512", 1549.95, InstrumentSpec(newProperties5))
+        newProperties6 = dict()
+        newProperties6[Property.INSTRUMENT_TYPE] = InstrumentType.GUITER
+        newProperties6[Property.BUILDER] = Builder.GIBSON
+        newProperties6[Property.MODEL] = "Les Paul"
+        newProperties6[Property.TYPE] = Type.ELECTRIC
+        newProperties6[Property.NUM_STRINGS] = 6
+        newProperties6[Property.TOP_WOOD] = Wood.MAPLE
+        newProperties6[Property.BACK_WOOD] = Wood.MAPLE
+        self.addInstrument("70108276", 2295.95, InstrumentSpec(newProperties6))

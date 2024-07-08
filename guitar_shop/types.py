@@ -28,3 +28,25 @@ class Wood(myEnum):
     ADIRONDACK = "Adirondack"
     ALDER = "Alder"
     SITKA = "Sitka"
+    SPRUCE = "Spruce"
+
+class InstrumentType(myEnum):
+    GUITER = "Guitar"
+    BANJO = "Banjo"
+    DOBRO = "Dobro"
+    FIDDLE = "Fiddle"
+    BASS = "Bass"
+    MANDOLIN = "Mandolin"
+
+class Style(myEnum):
+    pass
+
+class Property(myEnum):
+    STYLE = "Style"
+    INSTRUMENT_TYPE = "Instrument Type"
+    BACK_WOOD = "Back Wood"
+    TOP_WOOD = "Top Wood"
+    BUILDER = "Builder"
+    TYPE = "Type"
+    MODEL = "Model"
+    NUM_STRINGS = "Number of Strings"
