@@ -13,7 +13,7 @@ class Inventory():
     
     def getInstrument(self, serialNumber: str) -> Instrument:
         for instrument in self.inventory:
-            if instrument.getSerialNumber() == serialNumber:
+            if instrument.serialNumber == serialNumber:
                 return instrument
             
         return None
@@ -22,7 +22,7 @@ class Inventory():
         matchingInstruments = []
 
         for instrument in self.inventory:
-            if searchSpec.matches(instrument.getSpec()):
+            if searchSpec.matches(instrument.spec):
                 matchingInstruments.append(instrument)
         
         return matchingInstruments
