@@ -4,7 +4,12 @@ from pprint import pprint
 from dougs_dog_door.bark import Bark
 from guitar_shop.instrument import Instrument
 from dougs_dog_door.dog_door_simulator import dog_door_simulator
+from objectville_travel.test import objectvilleSubwayTester, getDirectionsTester
+
+import sys
 
 # pprint(getmembers(Instrument, isfunction))
-find_guitar_tester()
+# find_guitar_tester()
 # dog_door_simulator()
+objectvilleSubwayTester()
+getDirectionsTester(sys.argv[1:])
